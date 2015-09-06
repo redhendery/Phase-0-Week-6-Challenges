@@ -37,7 +37,7 @@ class BingoBoard
   end
 
   def new_board
-    @bingo_board.each{|row| p row}
+    @bingo_board.each_index{|row| p row}
   end
 
 def letter

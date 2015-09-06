@@ -34,15 +34,21 @@ def north_korean_cipher(coded_message)
     found_match = false  # Why would this be assigned to false from the outset? What happens when it's true?
     cipher.each_key do |y| # What is #each_key doing here?
       if x == y  # What is this comparing? Where is it getting x? Where is it getting y? What are those variables really?
+          # 'x' is the key
+          # 'y' is the value
+          # these variables are the characters within the cipher
         puts "I am comparing x and y. X is #{x} and Y is #{y}."
         decoded_sentence << cipher[y]
         found_match = true
         break  # Why is it breaking here?
+          # it breaks here to prevent an infinite loop
       elsif x == "@" || x == "#" || x == "$" || x == "%"|| x == "^" || x == "&"|| x =="*" #What the heck is this doing?
+          # here it is looking for specific characters in the cipher and seeing if they are eqaul to 'X'
         decoded_sentence << " "
         found_match = true
         break
       elsif (0..9).to_a.include?(x) # Try this out in IRB. What does   " (0..9).to_a "    do?
+          # running (0..9).to_a creates an array of numbers 0 thru 9, however 'x' will never be included here as 'x' is a string
         decoded_sentence << x
         found_match = true
         break
@@ -55,9 +61,12 @@ def north_korean_cipher(coded_message)
   decoded_sentence = decoded_sentence.join("")
 
   if decoded_sentence.match(/\d+/) #What is this matching? Look at Rubular for help.
+      # this is a regualr expression looking for a numbers in the cipher array
     decoded_sentence.gsub!(/\d+/) { |num| num.to_i / 100 } #He's been known to exaggerate...
+      # this is a regualr expression looking for a numbers in the cipher array and divides by 100
   end
   return decoded_sentence # What is this returning?
+    # this returns the decoded cipher
 end
 
 # Driver Test Code:
