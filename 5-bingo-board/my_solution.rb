@@ -36,32 +36,39 @@ class BingoBoard
     @bingo_board = Array.new(5) {Array(5.times.map{rand(1..100)})}
   end
 
-  def new_board
+  def view # this is the responsibility of this method
     @bingo_board.each_index{|row| p row}
   end
 
-def letter
+def new_card #(letter + number_ball) 
   @letter = ["B", "I", "N", "G", "O"].shuffle.first
-  @ball = rand(1..100)
+  @number_ball = rand(1..100)
   puts "The ball is #{@letter} #{@ball}"
 end
 
-def verify
+def match? # makes more sense I think, to read in driver code below
   @ball
   @bingo_board.each{|row| p row}
   @bingo_board.collect! do |i|
    if i.include?(@ball)
      i[i.index(@ball)] = 'X'; i
+     return true #
    else
      i
    end
   end
+  
 end
 
 end
 
 # DRIVER TESTS GO BELOW THIS LINE
 
-newgame = BingoBoard.new
-puts newgame.letter
-newgame.verify
+board = BingoBoard.new
+100.times do
+  puts board.new_card
+  if board.match?
+    puts "Match!!"
+    board.view
+  end
+end
